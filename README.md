@@ -41,21 +41,28 @@ Gateway: 192.168.1.1
 Switch 1
 
 Router R1
+
 G0/1: 192.168.1.1/24
+
 G0/0: 192.168.3.1/24
 
 Inter-router network
+
 192.168.3.0/24
 
 Router R2
+
 G0/0: 192.168.3.2/24
+
 G0/1: 192.168.2.1/24
 
 Switch 2
 
 ### Prod. Dept.
 PC3
+
 192.168.2.10/24
+
 Gateway: 192.168.2.1
 
 PC2 is also connected to Switch 1, and PC4 is also connected to Switch 2.
