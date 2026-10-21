@@ -36,8 +36,11 @@ At the end of this practical, anyone following should be able to:
 Use the following logical topology.
 ### Prod. Dept.
 PC1
+
 192.168.1.10/24
+
 Gateway: 192.168.1.1
+
 Switch 1
 
 Router R1
