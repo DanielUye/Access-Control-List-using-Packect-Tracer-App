@@ -109,7 +109,6 @@ Important: R1 and R2 must have different addresses on the inter-router network. 
 
 Click R1, open the CLI, and enter:
 
-cisco
 ```
 enable
 configure terminal
@@ -123,7 +122,6 @@ hostname R1
 
 ### Step 2: Configure the LAN interface
 
-cisco
 ```
 interface gigabitEthernet 0/1
 ip address 192.168.1.1 255.255.255.0
@@ -135,7 +133,6 @@ This interface connects R1 to Switch 1 and the `192.168.1.0/24` LAN.
 
 ### Step 3: Configure the inter-router interface
 
-cisco
 ```
 interface gigabitEthernet 0/0
 ip address 192.168.3.1 255.255.255.0
@@ -147,7 +144,6 @@ This interface connects R1 to R2 over the `192.168.3.0/24` network.
 
 ### Step 4: Configure the static route
 
-cisco
 ```
 ip route 192.168.2.0 255.255.255.0 192.168.3.2
 end
@@ -160,7 +156,6 @@ This tells R1 to forward traffic destined for `192.168.2.0/24` to R2 at `192.168
 
 ### Step 1: Enter configuration mode
 
-cisco
 ```
 enable
 configure terminal
@@ -169,7 +164,6 @@ hostname R2
 
 ### Step 2: Configure the inter-router interface
 
-cisco
 ```
 interface gigabitEthernet 0/0
 ip address 192.168.3.2 255.255.255.0
@@ -179,7 +173,6 @@ exit
 
 ### Step 3: Configure the LAN interface
 
-cisco
 ```
 interface gigabitEthernet 0/1
 ip address 192.168.2.1 255.255.255.0
@@ -189,7 +182,6 @@ exit
 
 ### Step 4: Configure the return static route
 
-cisco
 ```
 ip route 192.168.1.0 255.255.255.0 192.168.3.1
 end
@@ -202,7 +194,6 @@ This tells R2 how to reach the LAN behind R1.
 
 On both routers, run:
 
-cisco
 ```
 show ip interface brief
 ```
@@ -211,7 +202,6 @@ The configured interfaces should show `up` in both the Status and Protocol colum
 
 Also check the routing table:
 
-cisco
 ```
 show ip route
 ```
@@ -250,7 +240,6 @@ For each PC, select Desktop → IP Configuration in Packet Tracer.
 
 On PC1, open Desktop → Command Prompt:
 
-text
 ```
 ping 192.168.1.1
 ping 192.168.3.2
@@ -262,7 +251,6 @@ The pings should succeed when the routing and addressing are correct. The first 
 
 Also test from PC3:
 
-text
 ```
 ping 192.168.1.10
 ```
@@ -306,7 +294,6 @@ A standard ACL does not check the destination address. For this project, i appli
 
 ### Step 1: Create the ACL on R2
 
-cisco
 ```
 enable
 configure terminal
@@ -322,7 +309,6 @@ Explanation:
 
 ### Step 2: Apply the ACL
 
-cisco
 ```
 interface gigabitEthernet 0/1
 ip access-group 11 out
@@ -348,7 +334,6 @@ It can also affect replies and other traffic that crosses the interface. For pre
 
 To remove ACL 11 later, first remove its interface association, then delete the ACL:
 
-cisco
 ```
 configure terminal
 interface gigabitEthernet 0/1
@@ -378,7 +363,6 @@ I will use an extended named ACL on R1's G0/1, where traffic from PC1 and PC2 en
 
 If ACL 11 is still applied on R2, remove it so it does not interfere with the test:
 
-cisco
 ```
 R2# configure terminal
 R2(config)# interface gigabitEthernet 0/1
@@ -392,7 +376,6 @@ If you applied ACL 11 in a different direction, remove it from that interface us
 
 ### Step 2: Create an extended ACL on R1
 
-cisco
 ```
 enable
 configure terminal
@@ -410,7 +393,6 @@ Explanation:
 
 ### Step 3: Apply the ACL inbound on R1 G0/1
 
-cisco
 ```
 interface gigabitEthernet 0/1
 ip access-group BLOCK-PC1-TO-PC3 in
@@ -424,7 +406,6 @@ Why G0/1? Packets from PC1 enter R1 through G0/1. The ACL blocks the specified p
 
 On PC1, run:
 
-text
 ```
 ping 192.168.2.10
 ```
@@ -433,7 +414,6 @@ Expected: the ping fails because the echo requests are denied.
 
 On PC3, run:
 
-text
 ```
 ping 192.168.1.10
 ```
@@ -466,14 +446,12 @@ Use these commands to inspect your configuration.
 
 On R1:
 
-cisco
 ```
 show access-lists
 ```
 
 You should see a rule similar to:
 
-text
 ```
 Extended IP access list BLOCK-PC1-TO-PC3
     deny icmp host 192.168.1.10 host 192.168.2.10 echo
@@ -484,7 +462,6 @@ The deny counter should increase when PC1 tries to ping PC3. The exact output fo
 
 To verify interface placement:
 
-cisco
 ```
 show ip interface gigabitEthernet 0/1
 ```
@@ -511,7 +488,6 @@ The following is the intended configuration for the final ACL exercise, assuming
 
 ## R1-Final configuration additions
 
-cisco
 ```
 enable
 configure terminal
@@ -532,7 +508,6 @@ write memory
 
 ## R2-Final routing configuration
 
-cisco
 ```
 enable
 configure terminal
